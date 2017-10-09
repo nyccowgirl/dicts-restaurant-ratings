@@ -12,6 +12,7 @@ def get_rest_ratings(filename):
         for line in rest_file:
             line = line.rstrip()
             restaurant, rating = line.split(":")
+            # restaurants = line.split(":")
 
             # restaurant = restaurants[0]
             # rating = restaurants[1]
@@ -46,7 +47,6 @@ def get_user_rating(dictionary):
     user_restaurant = raw_input("Please enter a restaurant name: ")
     user_rating = raw_input("Please give that restaurant a rating: ")
     dictionary[user_restaurant] = user_rating
-
 
 
 restaurant_ratings = get_rest_ratings("scores.txt")
