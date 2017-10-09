@@ -2,12 +2,12 @@
 
 
 # put your code here
-def rest_ratings_dict(filename):
+def get_rest_ratings(filename):
     """ Creates dictionary of restaurants and their related ratings. """
 
     with open(filename) as rest_file:
 
-        rest_rate = {}
+        rest_ratings = {}
 
         for line in rest_file:
             line = line.rstrip()
@@ -16,23 +16,23 @@ def rest_ratings_dict(filename):
             # restaurant = restaurants[0]
             # rating = restaurants[1]
 
-            rest_rate[restaurant] = rating
+            rest_ratings[restaurant] = rating
 
-    return rest_rate
-
-
-def sort_rest_ratings(dictionary):
-    """ Sort restaurants and respective ratings in alphabetical order. """
-
-    alpha_rest = sorted(dictionary.items())
-
-    return alpha_rest
+    return rest_ratings
 
 
-def print_rest_ratings(lst):
+# def sort_rest_ratings(dictionary):
+#     """ Sort restaurants and respective ratings in alphabetical order. """
+
+#     alpha_rest = sorted(dictionary.items())
+
+#     return alpha_rest
+
+
+def print_rest_ratings(dictionary):
     """ Print out restaurants and related ratings in alphabetical order. """
 
-    for restaurant, rating in lst:
+    for restaurant, rating in sorted(dictionary.items()):
         # restaurant = i[0]
         # rating = i[1]
 
@@ -40,6 +40,16 @@ def print_rest_ratings(lst):
                                                           rating=rating)
 
 
-restaurants = rest_ratings_dict("scores.txt")
-sort_restaurants = sort_rest_ratings(restaurants)
-print_rest_ratings(sort_restaurants)
+def get_user_rating(dictionary):
+    """ Takes a restaurant and rating as user input and adds it to dictionary. """
+
+    user_restaurant = raw_input("Please enter a restaurant name: ")
+    user_rating = raw_input("Please give that restaurant a rating: ")
+    dictionary[user_restaurant] = user_rating
+
+
+
+restaurant_ratings = get_rest_ratings("scores.txt")
+get_user_rating(restaurant_ratings)
+# sort_restaurants = sort_rest_ratings(complete_ratings)
+print_rest_ratings(restaurant_ratings)
