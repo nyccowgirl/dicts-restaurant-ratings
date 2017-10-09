@@ -1,5 +1,6 @@
 """Restaurant rating lister."""
 
+import random
 
 # put your code here
 def get_rest_ratings(filename):
@@ -45,11 +46,56 @@ def get_user_rating(dictionary):
     """ Takes a restaurant and rating as user input and adds it to dictionary. """
 
     user_restaurant = raw_input("Please enter a restaurant name: ")
-    user_rating = raw_input("Please give that restaurant a rating: ")
-    dictionary[user_restaurant] = user_rating
+
+    while True:
+        user_rating = (raw_input("Please give that restaurant a rating: "))
+
+        if user_rating.isdigit():
+            user_rating = int(user_rating)
+
+        if (user_rating >= 1) and (user_rating <= 5):
+            dictionary[user_restaurant] = user_rating
+            break
+        else:
+            print "Scores must be between 1 and 5. Please try again."
 
 
-restaurant_ratings = get_rest_ratings("scores.txt")
-get_user_rating(restaurant_ratings)
-# sort_restaurants = sort_rest_ratings(complete_ratings)
-print_rest_ratings(restaurant_ratings)
+def update_rating(dictionary):
+    """ Updates a restaurant's rating based on user input. """
+
+    random.choice(dictionary.key())
+
+
+def get_menu():
+    """ Displays menu of options for user to pick from. """
+
+    print "\n1 - See the ratings of each restaurant in alphabetical order."
+    print "2 - Add a new restaurant and related rating."
+    print "3 - Update a restaurant's rating."
+    print "4 - Quit\n"
+
+
+def repl():
+    """ Gives user a choice to see all the ratings in alphabetical order, adding a new restaurant with rating, or quitting. """
+
+    restaurant_ratings = get_rest_ratings("scores.txt")
+
+    while True:
+        get_menu()
+
+        choice = int(raw_input("What would you like to do? "))
+
+        print "\n"
+
+        if choice == 1:
+            print_rest_ratings(restaurant_ratings)
+        elif choice == 2:
+            get_user_rating(restaurant_ratings)
+        elif choice == 3:
+            continue
+        elif choice == 4:
+            break
+        else:
+            print "That is not one of the options. Please try again."
+
+repl()
