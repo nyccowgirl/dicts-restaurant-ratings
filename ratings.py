@@ -3,6 +3,8 @@
 import random
 
 # put your code here
+
+
 def get_rest_ratings(filename):
     """ Creates dictionary of restaurants and their related ratings. """
 
@@ -60,10 +62,44 @@ def get_user_rating(dictionary):
             print "Scores must be between 1 and 5. Please try again."
 
 
-def update_rating(dictionary):
-    """ Updates a restaurant's rating based on user input. """
+def update_rand_rating(dictionary):
+    """ Updates a random restaurant's rating based on user input. """
 
-    random.choice(dictionary.key())
+    rand_rest = random.choice(dictionary.keys())
+
+    print "{} is currently rated at {}.".format(rand_rest, dictionary.get(rand_rest))
+
+    while True:
+        user_rating = (raw_input("Please update the rating for that restaurant: "))
+
+        if user_rating.isdigit():
+            user_rating = int(user_rating)
+
+        if (user_rating >= 1) and (user_rating <= 5):
+            dictionary[rand_rest] = user_rating
+            break
+        else:
+            print "Scores must be between 1 and 5. Please try again."
+
+
+def update_rating(dictionary):
+    """ Updates a specific restaurant's rating based on user input. """
+
+    rest_name = raw_input("Please enter a restaurant name: ")
+
+    print "{} is currently rated at {}.".format(rest_name, dictionary.get(rest_name))
+
+    while True:
+        user_rating = (raw_input("Please update the rating for that restaurant: "))
+
+        if user_rating.isdigit():
+            user_rating = int(user_rating)
+
+        if (user_rating >= 1) and (user_rating <= 5):
+            dictionary[rest_name] = user_rating
+            break
+        else:
+            print "Scores must be between 1 and 5. Please try again."
 
 
 def get_menu():
@@ -71,8 +107,9 @@ def get_menu():
 
     print "\n1 - See the ratings of each restaurant in alphabetical order."
     print "2 - Add a new restaurant and related rating."
-    print "3 - Update a restaurant's rating."
-    print "4 - Quit\n"
+    print "3 - Update a random restaurant's rating."
+    print "4 - Update a specific restaurant's rating."
+    print "5 - Quit\n"
 
 
 def repl():
@@ -92,8 +129,10 @@ def repl():
         elif choice == 2:
             get_user_rating(restaurant_ratings)
         elif choice == 3:
-            continue
+            update_rand_rating(restaurant_ratings)
         elif choice == 4:
+            update_rating(restaurant_ratings)
+        elif choice == 5:
             break
         else:
             print "That is not one of the options. Please try again."
